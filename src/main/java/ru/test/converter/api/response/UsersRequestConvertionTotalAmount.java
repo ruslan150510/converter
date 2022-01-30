@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public class UsersRequestedConversion {
+public class UsersRequestConvertionTotalAmount {
     private int userId;
+    private double totalAmountCurrency;
 }

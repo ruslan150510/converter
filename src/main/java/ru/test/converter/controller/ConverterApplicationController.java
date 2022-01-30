@@ -25,7 +25,7 @@ public class ConverterApplicationController {
     }
 
     @GetMapping("/stats")
-    public Collection<StatisticsResponse> statisticsResponseCollection() {
-        return null;
+    public StatisticsResponse statisticsResponseCollection() {
+        return applicationService.getStatistics();
     }
 }
