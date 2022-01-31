@@ -26,7 +26,7 @@ public class ConverterApplicationService {
             "currency_from=currencyFrom&currency_to=currencyTo&source=cbrf&sum=1&date=";
     private static final Currency USD = Currency.USD;
     private static final int ONE_REQUEST_IS_MORE_THAN_10000 = 10000;
-    private static final int AMOUNT_IS_MORE_THAN_100000 = 100000;
+    private static final double AMOUNT_IS_MORE_THAN_100000 = 100000;
 
     private AtomicInteger idGenerator = new AtomicInteger(1);
 
@@ -67,9 +67,16 @@ public class ConverterApplicationService {
         statisticsResponse.setCurrency(applicationRepository.getCurrencyEntites());
         List<UsersRequestedConversion> usersRequestedConversions = new ArrayList<>();
         Map<Integer, Double> convertionTotalAmounts = new ConcurrentHashMap<>();
+        Map<Integer, Double> convertionTotalAmountsIsMoreThan100000 = new ConcurrentHashMap<>();
         fillingInStatistics(usersRequestedConversions, convertionTotalAmounts);
         statisticsResponse.setUsersRequestedConversionList(usersRequestedConversions);
-        statisticsResponse.setUsersRequestedConversionListTotalAmount(convertionTotalAmounts);
+        for (int userId : convertionTotalAmounts.keySet()) {
+            if (AMOUNT_IS_MORE_THAN_100000 <= convertionTotalAmounts.get(userId)) {
+                convertionTotalAmountsIsMoreThan100000.put(userId, convertionTotalAmounts.get(userId));
+            }
+        }
+        statisticsResponse.setUsersRequestedConversionListTotalAmount(
+                convertionTotalAmountsIsMoreThan100000);
         return statisticsResponse;
     }
 

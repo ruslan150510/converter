@@ -27,17 +27,17 @@ public class ConverterApplicationRepository {
 
     public void setCurrencyEntities(Currency currency) {
         int count = 1;
-        if (currencyEntities.containsKey(currency)){
-            count =+ currencyEntities.get(currency);
+        if (currencyEntities.containsKey(currency)) {
+            count = +currencyEntities.get(currency);
         }
         currencyEntities.put(currency, count);
     }
 
-    public Set<Currency> getCurrencyEntites(){
+    public Set<Currency> getCurrencyEntites() {
         return currencyEntities.keySet();
     }
 
-    public List<ConverterApplicationEntity> getApplicationEntityList(){
+    public List<ConverterApplicationEntity> getApplicationEntityList() {
         return applicationEntityList;
     }
 }
